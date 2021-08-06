@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id 'application'
+    id "com.github.johnrengelman.shadow" version "7.0.0"
+}
+
+group 'com.linkeriyo'
+version '1.0'
+
+mainClassName = 'com.linkeriyo.horariolaboral.controllers.MinebotFinal'
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+}
+
+dependencies {
+    implementation 'net.dv8tion:JDA:4.3.0_299'
+    implementation 'com.vdurmont:emoji-java:5.1.1'
+    implementation group: 'org.json', name: 'json', version: '20200518'
+    // https://mvnrepository.com/artifact/com.joestelmach/natty
+    implementation 'com.joestelmach:natty:0.13'
+    implementation 'com.google.api-client:google-api-client:1.30.4'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.30.6'
+    implementation 'com.google.apis:google-api-services-sheets:v4-rev581-1.25.0'
+    implementation 'com.google.auth:google-auth-library-oauth2-http:1.0.0'
+}
+
+test {
+    useJUnitPlatform()
+}
