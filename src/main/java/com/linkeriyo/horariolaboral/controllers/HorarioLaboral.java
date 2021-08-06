@@ -7,21 +7,27 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.*;
 
 import javax.security.auth.login.LoginException;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MinebotFinal {
-    public final static String CAREPICHA_ROLE_ID = "580426709581692928",
-            OG_CAREPICHA_ROLE_ID = "708345730460549122",
-            MINECRAFTERS_GUILD_ID = "580421667336224769";
-
+public class HorarioLaboral {
     private static JDA jda;
 
-    public MinebotFinal() throws LoginException, IOException {
+    static String readFile(String path, Charset encoding) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, encoding);
+    }
+
+    public HorarioLaboral() throws LoginException, IOException {
         try {
-            String token = "ODY5NjIwNzczNDQ1MzIwNzA0.YQA3dQ.9NL0i22tNdJLfqJHIY9BFJ-h5Pc";
+            String token = readFile("files/token", StandardCharsets.UTF_8);
 
             jda = JDABuilder.createDefault(token)
                     .addEventListeners(new HorarioLaboralListener())
@@ -52,7 +58,7 @@ public class MinebotFinal {
             jda.getTextChannelById("713842133232254977").sendMessage(embed).queue();
 */
         } catch (InterruptedException ex) {
-            Logger.getLogger(MinebotFinal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HorarioLaboral.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         new Thread(new ConsoleInputListener(jda)).start();
@@ -67,7 +73,7 @@ public class MinebotFinal {
         boolean exit = false;
         while (!exit) {
             try {
-                new MinebotFinal();
+                new HorarioLaboral();
                 exit = true;
             } catch (LoginException ex) {
                 ex.printStackTrace();

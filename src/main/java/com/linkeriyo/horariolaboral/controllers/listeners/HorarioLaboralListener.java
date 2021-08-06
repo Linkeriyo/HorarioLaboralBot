@@ -10,7 +10,7 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.auth.oauth2.ServiceAccountCredentials;
-import com.linkeriyo.horariolaboral.controllers.MinebotFinal;
+import com.linkeriyo.horariolaboral.controllers.HorarioLaboral;
 import edu.emory.mathcs.backport.java.util.Collections;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -95,7 +95,7 @@ public class HorarioLaboralListener extends ListenerAdapter {
 
                 appendRowToSheet(date, hours, stringComment);
 
-                MinebotFinal.getJda().retrieveUserById("154268434090164226").queue(
+                HorarioLaboral.getJda().retrieveUserById("154268434090164226").queue(
                         linkeriyo -> linkeriyo.openPrivateChannel().queue(
                                 privateChannel -> {
                                     privateChannel.sendMessageEmbeds(

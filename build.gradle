@@ -7,7 +7,7 @@ plugins {
 group 'com.linkeriyo'
 version '1.0'
 
-mainClassName = 'com.linkeriyo.horariolaboral.controllers.MinebotFinal'
+mainClassName = 'com.linkeriyo.horariolaboral.controllers.HorarioLaboral'
 
 repositories {
     mavenCentral()
