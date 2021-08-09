@@ -35,7 +35,6 @@ public class HorarioLaboral {
                     .build();
             jda.awaitReady();
 
-
 /*
             MessageEmbed embed = new EmbedBuilder().setDescription("1. respetacion\n"
                     + "2. no sé consiste en respetarse\n"
