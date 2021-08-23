@@ -7,18 +7,24 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.*;
 
 import javax.security.auth.login.LoginException;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.GeneralSecurityException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HorarioLaboral {
     private static JDA jda;
+    public static SimpleDateFormat inputSDF = new SimpleDateFormat("d 'de' MMMM/yyyy", Locale.forLanguageTag("es-ES"));
+    public static SimpleDateFormat outputSDF = new SimpleDateFormat("dd/MM/yyyy");
+    public static SimpleDateFormat monthSDF = new SimpleDateFormat("MMMM/yyyy");
+    private static SheetsAccess sheetsAccess;
 
     static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
@@ -29,6 +35,7 @@ public class HorarioLaboral {
         try {
             String token = readFile("files/token", StandardCharsets.UTF_8);
 
+            sheetsAccess = new SheetsAccess();
             jda = JDABuilder.createDefault(token)
                     .addEventListeners(new HorarioLaboralListener())
                     .setActivity(Activity.listening("linkeriyo"))
@@ -56,7 +63,7 @@ public class HorarioLaboral {
 
             jda.getTextChannelById("713842133232254977").sendMessage(embed).queue();
 */
-        } catch (InterruptedException ex) {
+        } catch (InterruptedException | GeneralSecurityException ex) {
             Logger.getLogger(HorarioLaboral.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -65,6 +72,10 @@ public class HorarioLaboral {
 
     public static JDA getJda() {
         return jda;
+    }
+
+    public static SheetsAccess getSheetsAccess() {
+        return sheetsAccess;
     }
 
 
